@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import { SettingsConsumer } from 'composers/SettingsContext';
 import Home from '../Home';
+import AnimePage from '../AnimePage';
 
 export default () => (
   <Switch>
@@ -16,6 +17,10 @@ export default () => (
           )}
         </SettingsConsumer>
       )}
+    />
+    <Route
+      path="/anime/:animeId/:animeName"
+      component={AnimePage}
     />
   </Switch>
 );

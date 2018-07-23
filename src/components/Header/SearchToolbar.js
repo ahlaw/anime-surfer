@@ -30,7 +30,7 @@ const SearchToolbar = ({
       <IconButton
         className={classes.backButton}
         color="inherit"
-        aria-label="Menu"
+        aria-label="Back"
         onClick={cancelSearch}
       >
         <ArrowBackIcon />

@@ -19,6 +19,10 @@ module.exports = {
     }],
     "comma-dangle": ["error", "never"],
     "react/forbid-prop-types": [0],
-    "react/require-default-props": [0]
+    "react/require-default-props": [0],
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }]
   }
 };

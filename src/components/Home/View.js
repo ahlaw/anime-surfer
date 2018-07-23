@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { array, object } from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
@@ -16,6 +17,11 @@ const styles = theme => ({
   },
   gridListTile: {
     position: 'relative'
+  },
+  link: {
+    '&:hover': {
+      opacity: 0.7
+    }
   }
 });
 
@@ -53,10 +59,18 @@ const View = ({ classes, hits }) => (
           container
           item
         >
-          <Image
-            src={anime.attributes.posterImage.medium}
-            title={anime.attributes.canonicalTitle}
-          />
+          <Link
+            to={{
+              pathname: `anime/${anime.id}/${anime.attributes.slug}`,
+              state: { anime }
+            }}
+            className={classes.link}
+          >
+            <Image
+              src={anime.attributes.posterImage.medium}
+              title={anime.attributes.canonicalTitle}
+            />
+          </Link>
         </Grid>
       ))}
     </Grid>

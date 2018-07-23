@@ -30,7 +30,12 @@ const DefaultToolbar = ({
     >
       <MenuIcon />
     </IconButton>
-    <Typography variant="title" color="inherit" className={classes.flex}>
+    <Typography
+      variant="title"
+      color="inherit"
+      className={classes.flex}
+      noWrap
+    >
       Anime Surfer
     </Typography>
     <IconButton
