@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { object, string } from 'prop-types';
 
 import View from './View';
 
 export default class Home extends Component {
   static propTypes = {
-    searchQuery: string
+    searchQuery: string,
+    genreFilter: object
   };
 
   static defaultProps = {
@@ -46,10 +47,21 @@ export default class Home extends Component {
   };
 
   getApiUrl = () => {
+    const { searchQuery, genreFilter } = this.props;
     let apiUrl = 'https://kitsu.io/api/edge/anime';
     apiUrl += '?page[limit]=18&page[offset]=0';
-    if (this.props.searchQuery) {
-      apiUrl += `&filter[text]=${this.props.searchQuery}`;
+    if (searchQuery || genreFilter.size !== 0) apiUrl += '&filter';
+    if (searchQuery) {
+      apiUrl += `[text]=${searchQuery}`;
+    }
+    if (genreFilter.size !== 0) {
+      let filters = [];
+      genreFilter.forEach((value, key) => {
+        if (value) {
+          filters.push(key);
+        }
+      });
+      apiUrl += `[genre]=${filters.join(',')}`;
     }
     return apiUrl;
   };

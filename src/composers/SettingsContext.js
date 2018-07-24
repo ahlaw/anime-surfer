@@ -3,9 +3,12 @@ import { node } from 'prop-types';
 
 const SettingsContext = createContext();
 
+const LIVE_SEARCH_DEBOUNCE = 400;
+
 class SettingsProvider extends Component {
   state = {
-    searchQuery: ''
+    searchQuery: '',
+    genreFilter: new Map()
   };
 
   clearSearch = () => {
@@ -18,7 +21,16 @@ class SettingsProvider extends Component {
     const searchQuery = e.target.value;
     this.searchDelay = setTimeout(() => {
       this.setState({ searchQuery });
-    }, 400);
+    }, LIVE_SEARCH_DEBOUNCE);
+  };
+
+  toggleCheckbox = label => (e) => {
+    e.stopPropagation();
+    const checked = this.state.genreFilter.get(label) || false;
+    this.setState(prevState => ({
+      genreFilter: prevState.genreFilter.set(label, !checked)
+    }));
+    console.log(this.state.genreFilter);
   };
 
   render() {
@@ -26,8 +38,10 @@ class SettingsProvider extends Component {
       <SettingsContext.Provider
         value={{
           searchQuery: this.state.searchQuery,
+          genreFilter: this.state.genreFilter,
           clearSearch: this.clearSearch,
-          handleSearch: this.handleSearch
+          handleSearch: this.handleSearch,
+          toggleCheckbox: this.toggleCheckbox
         }}
       >
         {this.props.children}

@@ -12,6 +12,9 @@ const styles = theme => ({
   },
   searchField: {
     color: theme.palette.common.white
+  },
+  input: {
+    width: '100%'
   }
 });
 
@@ -36,7 +39,10 @@ const SearchToolbar = ({
         <ArrowBackIcon />
       </IconButton>
       <Input
-        classes={{ root: classes.searchField }}
+        classes={{
+          root: classes.searchField,
+          input: classes.input
+        }}
         id="search"
         type="search"
         placeholder="Search..."

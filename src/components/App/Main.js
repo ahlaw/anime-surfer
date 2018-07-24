@@ -12,8 +12,8 @@ export default () => (
       path="/"
       render={() => (
         <SettingsConsumer>
-          {({ searchQuery }) => (
-            <Home searchQuery={searchQuery} />
+          {({ searchQuery, genreFilter }) => (
+            <Home searchQuery={searchQuery} genreFilter={genreFilter} />
           )}
         </SettingsConsumer>
       )}

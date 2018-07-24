@@ -3,6 +3,8 @@ import { func, object } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 import { SettingsConsumer } from 'composers/SettingsContext';
 
@@ -35,6 +37,16 @@ class ActionBar extends Component {
 
   render() {
     const { location, history, toggleDrawer } = this.props;
+    const filterList = (
+      <IconButton
+        color="inherit"
+        aria-label="FilterList"
+        onClick={toggleDrawer('filter')}
+      >
+        <FilterListIcon />
+      </IconButton>
+    );
+
     let toolbar;
     switch (this.getCurrentToolbar()) {
       case 'search':
@@ -61,7 +73,7 @@ class ActionBar extends Component {
       default:
         toolbar = (
           <DefaultToolbar
-            toggleDrawer={toggleDrawer}
+            toggleDrawer={toggleDrawer('nav')}
             toggleSearch={this.toggleSearch}
           />
         );
@@ -71,6 +83,7 @@ class ActionBar extends Component {
       <AppBar position="sticky">
         <Toolbar>
           {toolbar}
+          {this.getCurrentToolbar() !== 'page' ? filterList : null}
         </Toolbar>
       </AppBar>
     );
