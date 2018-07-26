@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import update from 'immutability-helper';
 import { object, string } from 'prop-types';
 
 import View from './View';
@@ -32,7 +33,7 @@ export default class Home extends Component {
 
   onSetResult = (animePage, newSearch) => {
     this.setState(prevState => ({
-      hits: newSearch ? [...animePage.data] : [...prevState.hits, ...animePage.data],
+      hits: newSearch ? animePage.data : update(prevState.hits, { $push: animePage.data }),
       nextPage: animePage.links.next,
       isLoading: false,
       isError: false
@@ -55,13 +56,7 @@ export default class Home extends Component {
       apiUrl += `[text]=${searchQuery}`;
     }
     if (genreFilter.size !== 0) {
-      let filters = [];
-      genreFilter.forEach((value, key) => {
-        if (value) {
-          filters.push(key);
-        }
-      });
-      apiUrl += `[genre]=${filters.join(',')}`;
+      apiUrl += `[genres]=${Array.from(genreFilter).join(',')}`;
     }
     return apiUrl;
   };

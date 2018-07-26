@@ -29,7 +29,7 @@ const FilterItems = ({ classes, genreFilter, toggleCheckbox }) => (
               onClick={toggleCheckbox(genre.slug)}
             >
               <Checkbox
-                checked={genreFilter.get(genre.slug)}
+                checked={genreFilter.has(genre.slug)}
                 tabIndex={-1}
                 disableRipple
               />

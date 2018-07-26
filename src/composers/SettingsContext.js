@@ -1,4 +1,5 @@
 import React, { Component, createContext } from 'react';
+import update from 'immutability-helper';
 import { node } from 'prop-types';
 
 const SettingsContext = createContext();
@@ -8,7 +9,7 @@ const LIVE_SEARCH_DEBOUNCE = 400;
 class SettingsProvider extends Component {
   state = {
     searchQuery: '',
-    genreFilter: new Map()
+    genreFilter: new Set()
   };
 
   clearSearch = () => {
@@ -26,11 +27,16 @@ class SettingsProvider extends Component {
 
   toggleCheckbox = label => (e) => {
     e.stopPropagation();
-    const checked = this.state.genreFilter.get(label) || false;
-    this.setState(prevState => ({
-      genreFilter: prevState.genreFilter.set(label, !checked)
-    }));
-    console.log(this.state.genreFilter);
+    this.setState((prevState) => {
+      if (prevState.genreFilter.has(label)) {
+        return {
+          genreFilter: update(prevState.genreFilter, { $remove: [label] })
+        };
+      }
+      return {
+        genreFilter: update(prevState.genreFilter, { $add: [label] })
+      };
+    });
   };
 
   render() {
