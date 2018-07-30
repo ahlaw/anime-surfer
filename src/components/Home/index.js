@@ -26,7 +26,8 @@ export default class Home extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.searchQuery !== this.props.searchQuery) {
+    if (prevProps.searchQuery !== this.props.searchQuery ||
+        prevProps.genreFilter !== this.props.genreFilter) {
       this.newSearch();
     }
   }
